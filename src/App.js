@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavigationBar from './components/Navbar';
+import Home from './components/Home';
+import { GlobalProvider } from './context/globalState';
+import Lyrics from './components/Lyrics';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <Router>
+        <Fragment>
+          <NavigationBar />
+          <div className="container">
+            <Switch>
+              <Route path="/lyrics/track/:id" component={Lyrics} />
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </div>
+        </Fragment>
+      </Router>
+    </GlobalProvider>
   );
-}
+};
 
 export default App;
